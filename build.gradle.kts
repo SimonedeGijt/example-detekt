@@ -4,11 +4,12 @@ plugins {
     kotlin("jvm") version "1.6.0"
     kotlin("plugin.spring") version "1.6.0"
     idea
+    id("io.gitlab.arturbosch.detekt") version "1.20.0"
     id("org.jlleitschuh.gradle.ktlint") version "10.2.1"
     id("com.github.ben-manes.versions") version "0.42.0"
 }
 
-group = "example.ktlint"
+group = "example.detekt"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -47,31 +48,4 @@ tasks {
             excludeTags("smoke")
         }
     }
-
-    // ktlint {
-    //     version.set("0.44.0") // Pinterest version
-    //     debug.set(true)
-    //     verbose.set(true)
-    //     android.set(false)
-    //     ignoreFailures.set(true)
-    //     disabledRules.set(setOf("indent"))
-    //     enableExperimentalRules.set(true)
-    //     reporters {
-    //         reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.PLAIN)
-    //         reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.CHECKSTYLE)
-    //
-    //         customReporters {
-    //             register("html") {
-    //                 fileExtension = "html"
-    //                 dependency = "com.pinterest.ktlint:ktlint-reporter-html:0.38.1"
-    //             }
-    //         }
-    //     }
-    //     kotlinScriptAdditionalPaths {
-    //         include(fileTree("scripts/"))
-    //     }
-    //     filter {
-    //         exclude("**/*Test*")
-    //     }
-    // }
 }
