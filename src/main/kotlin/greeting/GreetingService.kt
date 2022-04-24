@@ -4,7 +4,10 @@ import org.springframework.stereotype.Service
 
 @Service
 class GreetingService {
-    var storedGreetings = listOf("hello")
-
-    fun getGreetings(): List<String> = storedGreetings
+    fun getGreetings(greeting: String) = if (
+        greeting.startsWith("hello") &&
+        !greeting.startsWith("bye") &&
+        !greeting.endsWith("_") &&
+        greeting.endsWith("!")
+    ) println(greeting) else Unit
 }
