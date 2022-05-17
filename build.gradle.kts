@@ -1,5 +1,4 @@
-import io.gitlab.arturbosch.detekt.Detekt
-import io.gitlab.arturbosch.detekt.DetektCreateBaselineTask
+
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -35,22 +34,22 @@ idea {
     }
 }
 
-detekt {
-    toolVersion = "1.20.0"
-    source = files("src/main/kotlin")
-    parallel = true
-    config = files("src/main/resources/detekt-config.yml") // When using a custom config file, the default values are ignored unless you also set the --build-upon-default-config flag.
-    buildUponDefaultConfig = true
-    allRules = false
-    baseline = file("path/to/baseline.xml")
-    disableDefaultRuleSets = false
-    debug = false
-    ignoreFailures = false
-    ignoredBuildTypes = listOf("release")
-    ignoredFlavors = listOf("production")
-    ignoredVariants = listOf("productionRelease")
-    basePath = projectDir.toString()
-}
+// detekt {
+//     toolVersion = "1.20.0"
+//     source = files("src/main/kotlin")
+//     parallel = true
+//     config = files("src/main/resources/detekt-config.yml") // When using a custom config file, the default values are ignored unless you also set the --build-upon-default-config flag.
+//     buildUponDefaultConfig = true
+//     allRules = false
+//     baseline = file("path/to/baseline.xml")
+//     disableDefaultRuleSets = false
+//     debug = false
+//     ignoreFailures = false
+//     ignoredBuildTypes = listOf("release")
+//     ignoredFlavors = listOf("production")
+//     ignoredVariants = listOf("productionRelease")
+//     basePath = projectDir.toString()
+// }
 
 tasks {
     withType<KotlinCompile> {
@@ -60,35 +59,35 @@ tasks {
         }
     }
 
-    withType<Detekt>().configureEach {
-        // exclude("**/greeting/**")
-        jvmTarget = JavaVersion.VERSION_11.toString() // use for type resolution and custom rules
-        reports {
-            html.required.set(true) // observe findings in your browser with structure and code snippets
-            xml.required.set(false) // checkstyle like format mainly for integrations like Jenkins
-            txt.required.set(false) // similar to the console output, contains issue signature to manually edit baseline files
-            sarif.required.set(false) // standardized SARIF format (https://sarifweb.azurewebsites.net/) to support integrations with Github Code Scanning
-        }
-    }
-
-    withType<DetektCreateBaselineTask>().configureEach {
-        jvmTarget = JavaVersion.VERSION_11.toString() // use for type resolution and custom rules
-    }
-
-    register<Detekt>("myDetekt") {
-        description = "Runs a custom detekt build."
-        setSource(files("src/main/kotlin", "src/test/kotlin"))
-        config.setFrom(files("$rootDir/config.yml"))
-        debug = true
-        reports {
-            xml {
-                outputLocation.set(file("build/reports/mydetekt.xml"))
-            }
-            html.outputLocation.set(file("build/reports/mydetekt.html"))
-        }
-        include("**/*.kt")
-        include("**/*.kts")
-        exclude("resources/")
-        exclude("build/")
-    }
+    // withType<Detekt>().configureEach {
+    //     // exclude("**/greeting/**")
+    //     jvmTarget = JavaVersion.VERSION_11.toString() // use for type resolution and custom rules
+    //     reports {
+    //         html.required.set(true) // observe findings in your browser with structure and code snippets
+    //         xml.required.set(false) // checkstyle like format mainly for integrations like Jenkins
+    //         txt.required.set(false) // similar to the console output, contains issue signature to manually edit baseline files
+    //         sarif.required.set(false) // standardized SARIF format (https://sarifweb.azurewebsites.net/) to support integrations with Github Code Scanning
+    //     }
+    // }
+    //
+    // withType<DetektCreateBaselineTask>().configureEach {
+    //     jvmTarget = JavaVersion.VERSION_11.toString() // use for type resolution and custom rules
+    // }
+    //
+    // register<Detekt>("myDetekt") {
+    //     description = "Runs a custom detekt build."
+    //     setSource(files("src/main/kotlin", "src/test/kotlin"))
+    //     config.setFrom(files("$rootDir/config.yml"))
+    //     debug = true
+    //     reports {
+    //         xml {
+    //             outputLocation.set(file("build/reports/mydetekt.xml"))
+    //         }
+    //         html.outputLocation.set(file("build/reports/mydetekt.html"))
+    //     }
+    //     include("**/*.kt")
+    //     include("**/*.kts")
+    //     exclude("resources/")
+    //     exclude("build/")
+    // }
 }
